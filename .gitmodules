@@ -1,0 +1,3 @@
+[submodule "nexo-pycozmo"]
+	path = nexo-pycozmo
+	url = https://github.com/nexo-robot/nexo-pycozmo.git
