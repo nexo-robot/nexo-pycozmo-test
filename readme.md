@@ -15,11 +15,12 @@ python -m pip install --upgrade pip
 
 ### Installation des lib
 ```bash
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 
 ### Installation de la version modifier de pycozmo
 ```bash
+cd nexo-pycozmo/
 python setup.py install
 ```
 
