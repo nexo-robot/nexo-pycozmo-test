@@ -1,3 +1,6 @@
 [submodule "nexo-pycozmo"]
 	path = nexo-pycozmo
 	url = https://github.com/nexo-robot/nexo-pycozmo.git
+[submodule "ps4Controle"]
+	path = ps4Controle
+	url = https://github.com/nexo-robot/ps4-controle.git
