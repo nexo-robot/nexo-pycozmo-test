@@ -2,9 +2,12 @@ import time
 import datetime
 import pycozmo
 from ps4Controle.ps4_controle import ps4_controle
+from tkinter.filedialog import askdirectory
+import os
 
 # Variable pour stocker la dernière image reçue
 latest_image = None
+dir_img = None
 
 def on_camera_image(cli, image):
     global latest_image
@@ -12,7 +15,7 @@ def on_camera_image(cli, image):
 
 def controler_robots():
     global latest_image
-    
+
     # Initialisation de la manette
     controller = ps4_controle()
     
@@ -47,7 +50,10 @@ def controler_robots():
                 if event == "TRIANGLE":
                     if latest_image:
                         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                        filename = f"cozmo_photo_{timestamp}.png"
+                        if dir_img is not None:
+                            filename = os.path.join(dir_img, f"cozmo_photo_{timestamp}.png")
+                        else:
+                            filename = f"cozmo_photo_{timestamp}.png"
                         latest_image.save(filename)
                         print(f"Photo enregistrée : {filename}")
                     else:
@@ -103,7 +109,49 @@ def controler_robots():
         cli.stop()
         print("Fin.")
 
+def set_dir_img():
+    out = None
+    global dir_img
+    while out == None:
+        try :
+            out = int(input("1.Selectionner le dossier\n2.Ecrire le dossier\n0.Annuler\n# "))
+        except :
+            print("Valeur invalide")
+            out = None
+
+    match out :
+        case 1 :
+            dir_img = askdirectory(
+                initialdir=os.path.expanduser('~'),
+                title="Sélectionnez votre dossier d'images"
+            )
+            print(f"Dossier selectionner {dir_img}")
+        case 2 :
+            dir_img = input("Dossier d'enregistrement des images : ")
+            print(f"Dossier selectionner {dir_img}")
+        case 0 :
+            dir_img = None
+
 def main():
+    print("Programme de teste de la lib nexo-pycozmo avec manette de PS4")
+    out = None
+    while True:
+        while out == None:
+            try :
+                out = int(input("1.Selectionner un dossier d'images\n2.Lancer\n# "))
+            except :
+                print("Valeur invalide")
+                out = None
+        match out:
+            case 1 :
+                set_dir_img()
+                out = None
+            case 2 :
+                break
+            case 0 :
+                out = None
+
+
     controler_robots()
 
 if __name__ == "__main__":
