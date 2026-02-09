@@ -17,7 +17,7 @@ def controler_robots():
     global latest_image
 
     # Initialisation de la manette
-    controller = ps4_controle()
+    controller = ps4_controle(mapping_file="ps4Controle/mapping/mapping_raspi.json")
     
     # Initialisation du robot
     cli = pycozmo.Client()
