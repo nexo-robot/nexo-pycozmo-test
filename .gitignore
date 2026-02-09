@@ -1,2 +1,6 @@
 .venv
-.idea
+.idea/
+__pycache__/
+*.iml
+*.iws
+*.ipr
